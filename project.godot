@@ -1,0 +1,67 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Maze",
+"language": "GDScript",
+"path": "res://script/world/maze.gd"
+}, {
+"base": "Object",
+"class": "ai_status_base",
+"language": "GDScript",
+"path": "res://script/ai/ai_status_base.gd"
+}, {
+"base": "Camera2D",
+"class": "cam_pan",
+"language": "GDScript",
+"path": "res://script/world/cam_pan.gd"
+}, {
+"base": "Node2D",
+"class": "character",
+"language": "GDScript",
+"path": "res://script/character/character.gd"
+}, {
+"base": "Object",
+"class": "world",
+"language": "GDScript",
+"path": "res://script/world/world.gd"
+} ]
+_global_script_class_icons={
+"Maze": "",
+"ai_status_base": "",
+"cam_pan": "",
+"character": "",
+"world": ""
+}
+
+[application]
+
+config/name="Zhongsheng"
+run/main_scene="res://game.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1200
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

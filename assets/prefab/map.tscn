@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/res/map_1.tres" type="TileSet" id=1]
+[ext_resource path="res://script/world/maze.gd" type="Script" id=2]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Navigation2D"]
+tile_set = ExtResource( 1 )
+format = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+visible = false
+margin_left = 24.6091
+margin_top = 24.9167
+margin_right = 64.6091
+margin_bottom = 44.9167
+text = "Step"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_Button_button_down"]

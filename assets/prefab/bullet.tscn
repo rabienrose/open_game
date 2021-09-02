@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/res/effect.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://script/bullet/bullet.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3.79193, 3.65712 )
+
+[node name="fireball" type="Area2D"]
+position = Vector2( -35.954, -20.1293 )
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+animation = "fireball"
+frame = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2.32375, -0.58094 )
+shape = SubResource( 1 )
+one_way_collision_margin = 0.0
+
+[connection signal="area_entered" from="." to="." method="_on_fireball_area_entered"]

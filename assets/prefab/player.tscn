@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/res/actor_anim.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://script/character/character.gd" type="Script" id=2]
+[ext_resource path="res://binary/images/barHorizontal_green.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 18.264 )
+
+[node name="root" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="hp_bar" type="TextureProgress" parent="."]
+margin_left = -16.0
+margin_top = -50.0
+margin_right = 16.0
+margin_bottom = -46.0
+value = 100.0
+texture_progress = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="up_shot" type="Position2D" parent="."]
+position = Vector2( 0, -40 )
+
+[node name="image" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+animation = "00_00_00"
+offset = Vector2( 0, -23 )
+
+[node name="down_shot" type="Position2D" parent="."]
+position = Vector2( 0, -10 )
+
+[node name="right_shot" type="Position2D" parent="."]
+position = Vector2( 15, -20 )
+
+[node name="left_shot" type="Position2D" parent="."]
+position = Vector2( -15, -20 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=[
+"player",
+]]
+position = Vector2( 0, -20.4185 )
+shape = SubResource( 1 )
