@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
-"class": "Maze",
-"language": "GDScript",
-"path": "res://script/world/maze.gd"
-}, {
 "base": "Object",
 "class": "ai_status_base",
 "language": "GDScript",
@@ -35,7 +30,6 @@ _global_script_classes=[ {
 "path": "res://script/world/world.gd"
 } ]
 _global_script_class_icons={
-"Maze": "",
 "ai_status_base": "",
 "cam_pan": "",
 "character": "",
