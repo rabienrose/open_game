@@ -74,7 +74,7 @@ func make_maze():
     while step_rand_maze():
         pass
     var t_count=0
-    while t_count<100:
+    while t_count<500:
         var x_rand = randi() % width
         var y_rand = randi() % height
         var cell_id = map.get_cell(x_rand, y_rand) 

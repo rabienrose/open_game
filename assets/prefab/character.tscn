@@ -28,7 +28,7 @@ position = Vector2( 0, -40 )
 
 [node name="image" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "00_00_00"
+animation = "New Anim"
 offset = Vector2( 0, -23 )
 
 [node name="down_shot" type="Position2D" parent="."]

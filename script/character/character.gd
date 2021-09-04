@@ -4,10 +4,11 @@ class_name character
 
 var speed=50
 var img:AnimatedSprite
-var hp=50
+var hp=100
 var max_hp=100
 var atk_range=100
-var atk_step=0.5
+var atk_spd=1
+var atk=10
 var hp_bar:TextureProgress
 var bar_red 
 var bar_green 
@@ -76,6 +77,8 @@ func is_moving():
 
 func stop_move():
     path_points=PoolVector2Array()
+    img.stop()
+    
 
 func set_move_tar_posi(tar_posi):
     path_points = world.map.cal_path(position, tar_posi)
@@ -108,7 +111,19 @@ func update_hp():
         hp_bar.visible=true
     else:
         hp_bar.visible=false
-       
+  
+func on_dead(attcker):
+    world.lottery_mgr.apply_rand_buf(attcker)
+    queue_free()
+
+
+func apply_damage(val, attacker):
+    hp=hp-val
+    if hp<=0:
+        on_dead(attacker)
+        return
+    update_hp()
+
 func shot(tar_posi):
     var distance = tar_posi - position
     var dir=distance.normalized()
@@ -116,7 +131,7 @@ func shot(tar_posi):
     var dir_s = get_direction()
     var posi = dir_posi_table[dir_s].global_position
     var rot=atan2(dir.y,dir.x)*180/3.1415926
-    world.add_new_bullet(posi, rot)
+    world.add_new_bullet(posi, rot, self)
 
 func get_direction():
     var dir_s="down"
