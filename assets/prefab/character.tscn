@@ -7,7 +7,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 18.264 )
 
-[node name="root" type="Area2D"]
+[node name="root" type="Area2D" groups=[
+"chara",
+]]
 script = ExtResource( 2 )
 
 [node name="hp_bar" type="TextureProgress" parent="."]
@@ -38,8 +40,6 @@ position = Vector2( 15, -20 )
 [node name="left_shot" type="Position2D" parent="."]
 position = Vector2( -15, -20 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=[
-"player",
-]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -20.4185 )
 shape = SubResource( 1 )

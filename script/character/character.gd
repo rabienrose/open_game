@@ -20,6 +20,8 @@ var world
 var path_points:PoolVector2Array=PoolVector2Array()
 var path_node_cur=1
 var ai_status
+var chara_type="base"
+var ai_tick_time=0
 
 func _ready():
     dir_posi_table["down"]=$"down_shot"
@@ -46,7 +48,12 @@ func _ready():
     ai_status.world=world 
     
 func _physics_process(delta):
-    ai_status.tick(delta)
+    ai_tick_time=ai_tick_time+delta
+    if ai_tick_time>0.2:
+        var new_ai = ai_status.tick(ai_tick_time)
+        ai_tick_time=0
+        if new_ai!=null:
+            ai_status=new_ai
     if path_points.size()>0:
         if img.playing==false:
             img.play()
@@ -61,8 +68,14 @@ func _physics_process(delta):
             else:
                 path_node_cur=path_node_cur+1
 
+func is_dead():
+    return hp<=0
+
 func is_moving():
     return path_points.size()>0
+
+func stop_move():
+    path_points=PoolVector2Array()
 
 func set_move_tar_posi(tar_posi):
     path_points = world.map.cal_path(position, tar_posi)
@@ -96,18 +109,13 @@ func update_hp():
     else:
         hp_bar.visible=false
        
-func shot():
+func shot(tar_posi):
+    var distance = tar_posi - position
+    var dir=distance.normalized()
+    set_direction(dir)
     var dir_s = get_direction()
     var posi = dir_posi_table[dir_s].global_position
-    var rot
-    if dir_s=="right":
-        rot=0
-    if dir_s=="up":
-        rot=-90
-    if dir_s=="left":
-        rot=-180
-    if dir_s=="down":
-        rot=90
+    var rot=atan2(dir.y,dir.x)*180/3.1415926
     world.add_new_bullet(posi, rot)
 
 func get_direction():
