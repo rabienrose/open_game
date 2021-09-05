@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 
 class_name character
 
@@ -6,7 +6,7 @@ var speed=50
 var img:AnimatedSprite
 var hp=100
 var max_hp=100
-var atk_range=100
+var atk_range=200
 var atk_spd=1
 var atk=10
 var hp_bar:TextureProgress
@@ -93,6 +93,10 @@ func move(d_posi):
 func _unhandled_input(event):
     ai_status._unhandled_input(event)
 
+func _input_event(viewport, event, shape_idx):
+    if event is InputEventMouseButton and event.pressed:
+        world.ui_chara_info.update_chara_info(self)
+
 func set_direction(dir):
     direction=dir
     var dir_s = get_direction()
@@ -135,7 +139,7 @@ func shot(tar_posi):
     var dir_s = get_direction()
     var posi = dir_posi_table[dir_s].global_position
     var rot=atan2(dir.y,dir.x)*180/3.1415926
-    world.add_new_bullet(posi, rot, self)
+    world.add_new_bullet(posi, rot, atk_range, self)
 
 func get_direction():
     var dir_s="down"

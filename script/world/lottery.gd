@@ -4,7 +4,7 @@ var buf_pool=[]
 
 func _init():
     buf_pool.append({"name":"add_atk","val":10,"desc":"ATK +10"})
-    buf_pool.append({"name":"add_atk_spd","val":1,"desc":"ATK SPD +10"})
+    buf_pool.append({"name":"add_atk_spd","val":1,"desc":"ATK SPD +1"})
     buf_pool.append({"name":"add_hp","val":50,"desc":"HP +50"})
     buf_pool.append({"name":"double_atk","desc":"Atk DOUBLE"})
     buf_pool.append({"name":"double_atk_spd","desc":"ATK SPD DOUBLE"})

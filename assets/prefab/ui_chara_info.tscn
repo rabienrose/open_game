@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://script/ui/ui_chara_info.gd" type="Script" id=1]
+
+[sub_resource type="Theme" id=1]
+
+[node name="ui_chara_info" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rank_list" type="ItemList" parent="."]
+margin_right = 150.0
+margin_bottom = 170.0
+theme = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

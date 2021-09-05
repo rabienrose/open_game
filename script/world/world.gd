@@ -8,6 +8,7 @@ var node
 var bullet_res
 var lottery_mgr
 var ui_rank
+var ui_chara_info
 
 func init():
     lottery_mgr=load("res://script/world/lottery.gd").new()
@@ -24,6 +25,7 @@ func init():
     ui_rank=node.get_node("ui/ui_rank")
     ui_rank.world=self
     ui_rank.update_rank_info()
+    ui_chara_info=node.get_node("ui/ui_chara_info")
 
 func get_near_characters(tar_char, max_dis):
     var charas = spawn.charactor_root.get_children()
@@ -55,13 +57,14 @@ func check_ray(src_char, tar_char):
 func get_all_bullets():
     pass
 
-func add_new_bullet(posi, rot, sender):
+func add_new_bullet(posi, rot, atk_range, sender):
     var b = bullet_res.instance()
     b.name="bullet"
     node.add_child(b)
     b.rotation_degrees=rot
     b.position = posi
     b.sender=sender
+    b.bullet_range=atk_range
     
 func remove_character(player):
     pass
