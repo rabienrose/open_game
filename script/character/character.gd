@@ -23,6 +23,7 @@ var path_node_cur=1
 var ai_status
 var chara_type="base"
 var ai_tick_time=0
+var fct_mgr
 
 func _ready():
     dir_posi_table["down"]=$"down_shot"
@@ -47,6 +48,7 @@ func _ready():
     ai_status=load("res://script/ai/ai_status_base.gd").new()
     ai_status.host=self
     ai_status.world=world 
+    fct_mgr=$"fct_mgr"
     
 func _physics_process(delta):
     ai_tick_time=ai_tick_time+delta
@@ -78,7 +80,6 @@ func is_moving():
 func stop_move():
     path_points=PoolVector2Array()
     img.stop()
-    
 
 func set_move_tar_posi(tar_posi):
     path_points = world.map.cal_path(position, tar_posi)
@@ -116,8 +117,8 @@ func on_dead(attcker):
     world.lottery_mgr.apply_rand_buf(attcker)
     queue_free()
 
-
 func apply_damage(val, attacker):
+    fct_mgr.show_value(str(val))
     hp=hp-val
     if hp<=0:
         on_dead(attacker)
