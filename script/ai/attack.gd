@@ -11,8 +11,8 @@ func tick(delta):
         return_ai = gen_new_status("idle")
         return return_ai
     var dis = (tar_char.position-host.position).length()
-    if dis<200:
-        if world.check_ray(host, tar_char):
+    if dis<400:
+        if dis < host.atk_range-20 and world.check_ray(host, tar_char):
             shot_step=shot_step+delta
             if shot_step>=1/host.atk_spd:
                 shot_step=0
@@ -20,6 +20,8 @@ func tick(delta):
         else:
             return_ai = gen_new_status("persuit")
             return_ai.tar_chara=tar_char
+    else:
+        return_ai = gen_new_status("idle")
     return return_ai
 
 

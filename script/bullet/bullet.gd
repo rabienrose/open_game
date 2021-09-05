@@ -1,14 +1,16 @@
 extends Area2D
 
 var speed = 250
-var cul_time=0
+var bullet_range = 200
+var cul_dis=0
 var sender
 
 func _physics_process(delta):
-    cul_time=cul_time+delta
-    if cul_time>1:
+    
+    if cul_dis>bullet_range:
         queue_free()
     position += transform.x * speed * delta
+    cul_dis=cul_dis+speed * delta
 
 func _on_fireball_area_entered(area):
     if not is_instance_valid(sender):

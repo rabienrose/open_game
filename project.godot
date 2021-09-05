@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://script/world/cam_pan.gd"
 }, {
-"base": "Node2D",
+"base": "Area2D",
 "class": "character",
 "language": "GDScript",
 "path": "res://script/character/character.gd"
