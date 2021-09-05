@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/res/actor_anim.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://script/character/character.gd" type="Script" id=2]
 [ext_resource path="res://binary/images/barHorizontal_green.png" type="Texture" id=3]
+[ext_resource path="res://script/ui/fct_mgr.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 18.264 )
@@ -28,7 +29,6 @@ position = Vector2( 0, -40 )
 
 [node name="image" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "New Anim"
 offset = Vector2( 0, -23 )
 
 [node name="down_shot" type="Position2D" parent="."]
@@ -43,3 +43,7 @@ position = Vector2( -15, -20 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -20.4185 )
 shape = SubResource( 1 )
+
+[node name="fct_mgr" type="Node2D" parent="."]
+position = Vector2( 0, -52 )
+script = ExtResource( 4 )
