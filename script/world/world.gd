@@ -7,6 +7,7 @@ var map
 var node
 var bullet_res
 var lottery_mgr
+var ui_rank
 
 func init():
     lottery_mgr=load("res://script/world/lottery.gd").new()
@@ -20,6 +21,9 @@ func init():
     bullet_res=load("res://assets/prefab/bullet.tscn")
     spawn.spawn_a_player(cam.position, "mob")
     spawn.spawn_a_player(Vector2(cam.position.x+50, cam.position.y), "player")
+    ui_rank=node.get_node("ui/ui_rank")
+    ui_rank.world=self
+    ui_rank.update_rank_info()
 
 func get_near_characters(tar_char, max_dis):
     var charas = spawn.charactor_root.get_children()

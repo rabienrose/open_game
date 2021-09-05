@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://script/ui/ui_rank.gd" type="Script" id=1]
+
+[sub_resource type="Theme" id=1]
+
+[node name="ui_rank" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rank_list" type="ItemList" parent="."]
+margin_right = 300.0
+margin_bottom = 200.0
+theme = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
