@@ -24,6 +24,7 @@ var ai_status
 var chara_type="base"
 var ai_tick_time=0
 var fct_mgr
+var kill_count=0
 
 func _ready():
     dir_posi_table["down"]=$"down_shot"
@@ -114,6 +115,8 @@ func update_hp():
         hp_bar.visible=false
   
 func on_dead(attcker):
+    attcker.kill_count=attcker.kill_count+1
+    world.ui_rank.update_rank_info()
     world.lottery_mgr.apply_rand_buf(attcker)
     queue_free()
 

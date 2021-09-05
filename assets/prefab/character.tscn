@@ -29,6 +29,7 @@ position = Vector2( 0, -40 )
 
 [node name="image" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
+animation = "00_00_00"
 offset = Vector2( 0, -23 )
 
 [node name="down_shot" type="Position2D" parent="."]
@@ -47,3 +48,14 @@ shape = SubResource( 1 )
 [node name="fct_mgr" type="Node2D" parent="."]
 position = Vector2( 0, -52 )
 script = ExtResource( 4 )
+
+[node name="name_board" type="Label" parent="."]
+margin_left = -33.5577
+margin_top = -64.7705
+margin_right = 33.4423
+margin_bottom = -50.7705
+text = "chamo"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
