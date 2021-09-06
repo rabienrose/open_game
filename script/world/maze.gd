@@ -20,17 +20,37 @@ var self_obj
 var world
 var init_offset
 var navigation2d
+var tile_infos={}
+var timer
+var cur_circle=null
 
 # get a reference to the map for convenience
 onready var map:TileMap = $Navigation2D/TileMap
 
+func _on_timer_timeout():
+    var x_rand_range=[0,width]
+    if cur_circle==null:
+        var x_rand = randi() % width
+        var y_rand = randi() % height
+
+func init_tile_info():
+    for i in range(width):
+        for j in range(height):
+            tile_infos[Vector2(i,j)]=0
+
 func _ready():
+    init_tile_info()
     randomize()
     tile_size = map.cell_size.x
     tileset=map.tile_set
     make_maze()
     init_offset=Vector2(tile_size/2,tile_size-5)
     navigation2d=$"Navigation2D"
+    timer = Timer.new()
+    timer.set_wait_time(5)
+    timer.connect("timeout",self,"_on_timer_timeout") 
+    add_child(timer)
+    timer.start()
     
 func get_rand_free_spot():
     var one_spot = free_cells[randi() % free_cells.size()]
