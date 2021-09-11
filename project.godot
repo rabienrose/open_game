@@ -17,23 +17,17 @@ _global_script_classes=[ {
 "base": "Camera2D",
 "class": "cam_pan",
 "language": "GDScript",
-"path": "res://script/world/cam_pan.gd"
+"path": "res://script/system/cam_pan.gd"
 }, {
 "base": "Area2D",
 "class": "character",
 "language": "GDScript",
 "path": "res://script/character/character.gd"
-}, {
-"base": "Object",
-"class": "world",
-"language": "GDScript",
-"path": "res://script/world/world.gd"
 } ]
 _global_script_class_icons={
 "ai_status_base": "",
 "cam_pan": "",
-"character": "",
-"world": ""
+"character": ""
 }
 
 [application]

@@ -1,7 +1,10 @@
 extends Node2D
 
-var world
+export var first_level_p:NodePath
+
+var cur_level
+
 func _ready():
-    world = load("res://script/world/world.gd").new()
-    world.node=self
-    world.init()
+	cur_level = get_node(first_level_p)
+	add_child(cur_level)
+	
