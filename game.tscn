@@ -1,10 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://script/game.gd" type="Script" id=1]
-[ext_resource path="res://prefab/level/agent_bettle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefab/world/agent_bettle.tscn" type="PackedScene" id=2]
 
 [node name="game" type="Node2D"]
 script = ExtResource( 1 )
-first_level_p = NodePath("level")
 
-[node name="level" parent="." instance=ExtResource( 2 )]
+[node name="world" parent="." instance=ExtResource( 2 )]

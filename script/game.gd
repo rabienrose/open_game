@@ -1,10 +1,10 @@
 extends Node2D
 
-export var first_level_p:NodePath
+export var first_world_p:NodePath
 
-var cur_level
+var cur_world
 
 func _ready():
-	cur_level = get_node(first_level_p)
-	add_child(cur_level)
-	
+    cur_world = get_node(first_world_p)
+    add_child(cur_world)
+    

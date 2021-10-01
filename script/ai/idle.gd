@@ -1,17 +1,20 @@
 extends ai_status_base
 
+class_name idle_status
+
 func tick(delta):
-    if not is_instance_valid(host):
+    if not is_instance_valid(owner):
         return null
-    if not host.is_moving():
-        var e_posi = world.map.get_rand_free_spot()
-        host.set_move_tar_posi(e_posi)
+    if not owner.is_moving():
+        var e_posi = world.map.get_rand_spot(1,false, true)[0]
+        e_posi=world.map.convert_c_to_m_pos(e_posi)
+        owner.set_move_tar_posi(e_posi)
     var return_ai=null
-    var chara = world.get_near_characters(host, 1000)
+    var chara = world.map.get_near_characters(owner, 5,1)
     if chara!=null:
-        var dis = (chara.position-host.position).length()
-        if dis < host.atk_range-20 and world.check_ray(host, chara):
-            host.stop_move()
+        var dis = (chara.position-owner.position).length()
+        if dis < owner.atk_range-20 and world.check_ray(owner, chara):
+            owner.stop_move()
             return_ai = gen_new_status("attack")
             return_ai.tar_char=chara
         else:
