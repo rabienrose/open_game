@@ -1,0 +1,73 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://res/chara/mage_f.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://script/character/character.gd" type="Script" id=2]
+[ext_resource path="res://binary/images/ui/barHorizontal_green.png" type="Texture" id=3]
+[ext_resource path="res://script/ui/fct_mgr.gd" type="Script" id=4]
+[ext_resource path="res://res/attr/atk_spd_1.tres" type="Resource" id=5]
+[ext_resource path="res://res/attr/hp_100.tres" type="Resource" id=6]
+[ext_resource path="res://res/attr/kill_count.tres" type="Resource" id=7]
+[ext_resource path="res://res/action/safe_move.tres" type="Resource" id=8]
+[ext_resource path="res://res/attr/speed_80.tres" type="Resource" id=9]
+[ext_resource path="res://res/attr/atk_10.tres" type="Resource" id=10]
+[ext_resource path="res://res/skill/fireball.tres" type="Resource" id=11]
+[ext_resource path="res://res/action/fire_bullet.tres" type="Resource" id=12]
+[ext_resource path="res://res/attr/atk_range.tres" type="Resource" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 18.264 )
+
+[node name="root" type="Area2D" groups=[
+"chara",
+]]
+script = ExtResource( 2 )
+attr_res = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 13 ) ]
+skill_res = [ ExtResource( 11 ) ]
+action_res = [ ExtResource( 8 ), ExtResource( 12 ) ]
+
+[node name="hp_bar" type="TextureProgress" parent="."]
+margin_left = -16.0
+margin_top = -50.0
+margin_right = 16.0
+margin_bottom = -46.0
+value = 100.0
+texture_progress = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="up_shot" type="Position2D" parent="."]
+position = Vector2( 0, -40 )
+
+[node name="image" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+animation = "walk_front"
+offset = Vector2( 0, -23 )
+
+[node name="down_shot" type="Position2D" parent="."]
+position = Vector2( 0, -10 )
+
+[node name="right_shot" type="Position2D" parent="."]
+position = Vector2( 15, -20 )
+
+[node name="left_shot" type="Position2D" parent="."]
+position = Vector2( -15, -20 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -20.4185 )
+shape = SubResource( 1 )
+
+[node name="fct_mgr" type="Node2D" parent="."]
+position = Vector2( 0, -52 )
+script = ExtResource( 4 )
+
+[node name="name_board" type="Label" parent="."]
+margin_left = -33.5577
+margin_top = -64.7705
+margin_right = 33.4423
+margin_bottom = -50.7705
+text = "chamo"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

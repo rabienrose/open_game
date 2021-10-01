@@ -1,22 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://script/game.gd" type="Script" id=1]
-[ext_resource path="res://assets/prefab/ui_rank.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/prefab/ui_chara_info.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefab/world/agent_bettle.tscn" type="PackedScene" id=2]
 
 [node name="game" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="ui" type="CanvasLayer" parent="."]
-
-[node name="ui_chara_info" parent="ui" instance=ExtResource( 3 )]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -150.0
-margin_top = 200.0
-
-[node name="ui_rank" parent="ui" instance=ExtResource( 2 )]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -300.0
-margin_bottom = 200.0
+[node name="world" parent="." instance=ExtResource( 2 )]

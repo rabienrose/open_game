@@ -2,153 +2,196 @@ extends Area2D
 
 class_name character
 
-var speed=50
+var chara_name
+var chara_type="base"
+
+var shape:CollisionShape2D
 var img:AnimatedSprite
-var hp=100
-var max_hp=100
-var atk_range=200
-var atk_spd=1
-var atk=10
 var hp_bar:TextureProgress
 var bar_red 
 var bar_green 
-var bar_yellow 
+var bar_yellow
+
+var map
+var world
+var fct_mgr
+
 var direction:Vector2
 var dir_posi_table={}
 var dir_anim_table={}
-var shape:CollisionShape2D
-var world
 var path_points:PoolVector2Array=PoolVector2Array()
 var path_node_cur=1
-var ai_status
-var chara_type="base"
-var ai_tick_time=0
-var fct_mgr
-var kill_count=0
+var slow_tick_time=0
+var med_tick_time=0
+var fast_tick_time=0
+var time_cul=0
+var cur_mov_dist=0
+var last_report_pos_c=null
+var slow_tick_list={}
+var med_tick_list={}
+var fast_tick_list={}
+var active_action=null
+
+var skills=[]
+var actions={}
+var attrs={}
+var bufs={}
+
+export(Array, Resource) var attr_res
+export(Array, Resource) var skill_res
+export(Array, Resource) var action_res
 
 func _ready():
-    dir_posi_table["down"]=$"down_shot"
-    dir_posi_table["up"]=$"up_shot"
+    world=get_node("/root/game/world")
+    map=world.get_node("map")
+    dir_posi_table["front"]=$"down_shot"
+    dir_posi_table["back"]=$"up_shot"
     dir_posi_table["right"]=$"right_shot"
     dir_posi_table["left"]=$"left_shot"
-    dir_anim_table["down"]="00"
-    dir_anim_table["up"]="02"
-    dir_anim_table["right"]="03"
-    dir_anim_table["left"]="01"
     img=$"image"
     hp_bar=$"hp_bar"
     hp_bar.visible=false
-    hp_bar.max_value=max_hp
-    bar_red = preload("res://binary/images/barHorizontal_red.png")
-    bar_green = preload("res://binary/images/barHorizontal_green.png")
-    bar_yellow = preload("res://binary/images/barHorizontal_yellow.png")
+    bar_red = preload("res://binary/images/ui/barHorizontal_red.png")
+    bar_green = preload("res://binary/images/ui/barHorizontal_green.png")
+    bar_yellow = preload("res://binary/images/ui/barHorizontal_yellow.png")
     img.playing=false
-    img.speed_scale=speed/45.0
     shape=$"CollisionShape2D"
     shape.add_to_group("self")
-    ai_status=load("res://script/ai/ai_status_base.gd").new()
-    ai_status.host=self
-    ai_status.world=world 
     fct_mgr=$"fct_mgr"
+    for res in attr_res:
+        var attr_new=res.duplicate(true)
+        attrs[attr_new.c_name]=attr_new
+        attr_new.on_create(world, self)
+        if attr_new.tick_hz_mode=="slow":
+            slow_tick_list[attr_new.c_name]=funcref(attr_new, "tick")
+        if attr_new.tick_hz_mode=="med":
+            med_tick_list[attr_new.c_name]=funcref(attr_new, "tick")
+        if attr_new.tick_hz_mode=="fast":
+            fast_tick_list[attr_new.c_name]=funcref(attr_new, "tick")
+    for res in skill_res:
+        var skill_new=res.duplicate(true)
+        skill_new.on_create(world, self)
+        skills.append(skill_new)
+    for res in action_res:
+        var action_new=res.duplicate(true)
+        action_new.on_create(world, self)
+        actions[action_new.c_name]=action_new
+    map.on_chara_create(self, position)
     
+    
+func on_create(chara_name_,name_, pos_m):
+    position=pos_m
+    set_name(name_)
+    chara_name=chara_name_
+    
+
+func add_buf(buf_res):
+    if buf_res.c_name in bufs:
+        return
+    var buf_new=buf_res.duplicate(true)
+    bufs[buf_new.c_name]=buf_new
+    buf_new.on_create(world, self)
+    if buf_new.tick_hz_mode=="slow":
+        slow_tick_list[buf_new.c_name]=funcref(buf_new, "tick")
+    if buf_new.tick_hz_mode=="med":
+        med_tick_list[buf_new.c_name]=funcref(buf_new, "tick")
+    if buf_new.tick_hz_mode=="fast":
+        fast_tick_list[buf_new.c_name]=funcref(buf_new, "tick")
+
+func remove_buf(buf_name):
+    if buf_name in bufs:
+        var buf_res=bufs[buf_name]
+        if buf_res.tick_hz_mode=="slow":
+            slow_tick_list.erase(buf_res.c_name)
+        if buf_res.tick_hz_mode=="med":
+            med_tick_list.erase(buf_res.c_name)
+        if buf_res.tick_hz_mode=="fast":
+            fast_tick_list.erase(buf_res.c_name)
+        bufs.erase(buf_name)
+
+func add_skill():
+    pass
+
+func remove_skill():
+    pass
+
 func _physics_process(delta):
-    ai_tick_time=ai_tick_time+delta
-    if ai_tick_time>0.2:
-        var new_ai = ai_status.tick(ai_tick_time)
-        ai_tick_time=0
-        if new_ai!=null:
-            ai_status=new_ai
-    if path_points.size()>0:
-        if img.playing==false:
-            img.play()
-        if path_node_cur>=path_points.size():
-            path_points=PoolVector2Array()
-            img.stop()
-        else:
-            var distance = path_points[path_node_cur] - position
-            set_direction(distance.normalized())
-            if distance.length() > 5:
-                move(direction*speed*delta)
-            else:
-                path_node_cur=path_node_cur+1
+    time_cul=time_cul+delta
+    if active_action!=null:
+        active_action.do(delta)
+    if time_cul-fast_tick_time>0.01:
+        var d_time=time_cul-fast_tick_time
+        fast_tick_time=time_cul
+        for key in fast_tick_list:
+            fast_tick_list[key].call_func(d_time)
+    if time_cul-med_tick_time>0.1: 
+        var d_time=time_cul-med_tick_time
+        for key in med_tick_list:
+            med_tick_list[key].call_func(d_time)
+        med_tick_time=time_cul
+        
+    if time_cul-slow_tick_time>1:
+        var d_time=time_cul-slow_tick_time
+        var max_score=-1
+        var max_action=null
+        for key in actions:
+            var score = actions[key].cal_score()
+            if max_score==-1 or score>max_score:
+                max_score=score
+                max_action=actions[key]
+        
+        if max_action!=active_action:
+            if active_action!=null:
+                active_action.on_switch_action(active_action, max_action)
+            max_action.on_switch_action(active_action, max_action)
+            active_action=max_action
+        for key in slow_tick_list:
+            slow_tick_list[key].call_func(d_time)
+        slow_tick_time=time_cul
 
-func is_dead():
-    return hp<=0
-
-func is_moving():
-    return path_points.size()>0
-
-func stop_move():
-    path_points=PoolVector2Array()
-    img.stop()
-
-func set_move_tar_posi(tar_posi):
-    path_points = world.map.cal_path(position, tar_posi)
-    path_node_cur=1
+func set_name(name_):
+    name=name_
+    get_node("name_board").text=name_
 
 func move(d_posi):
+    cur_mov_dist=cur_mov_dist+d_posi.length()
+    if last_report_pos_c==null:
+        last_report_pos_c=position
     position=position+d_posi
+    if cur_mov_dist>20:
+        cur_mov_dist=0
+        map.on_chara_move(self, last_report_pos_c, position)
+        last_report_pos_c=position
     z_index=position.y
     
 func _unhandled_input(event):
-    ai_status._unhandled_input(event)
+   pass
 
 func _input_event(viewport, event, shape_idx):
     if event is InputEventMouseButton and event.pressed:
-        world.ui_chara_info.update_chara_info(self)
+        pass
 
-func set_direction(dir):
-    direction=dir
-    var dir_s = get_direction()
-    switch_anim(dir_s)
-
-func switch_anim(dir_s):
-    var anima_app = dir_anim_table[dir_s]
-    img.animation="00_00_"+anima_app    
-    
-func update_hp():
-    hp_bar.texture_progress = bar_green
-    if hp < hp_bar.max_value * 0.7:
-        hp_bar.texture_progress = bar_yellow
-    if hp < hp_bar.max_value * 0.35:
-        hp_bar.texture_progress = bar_red
-    hp_bar.value = hp
-    if hp<max_hp:
-        hp_bar.visible=true
-    else:
-        hp_bar.visible=false
-  
-func on_dead(attcker):
-    attcker.kill_count=attcker.kill_count+1
-    world.ui_rank.update_rank_info()
-    world.lottery_mgr.apply_rand_buf(attcker)
-    queue_free()
-
-func apply_damage(val, attacker):
-    fct_mgr.show_value(str(val))
-    hp=hp-val
-    if hp<=0:
-        on_dead(attacker)
-        return
-    update_hp()
-
-func shot(tar_posi):
-    var distance = tar_posi - position
-    var dir=distance.normalized()
-    set_direction(dir)
+func get_fire_position():
     var dir_s = get_direction()
     var posi = dir_posi_table[dir_s].global_position
-    var rot=atan2(dir.y,dir.x)*180/3.1415926
-    world.add_new_bullet(posi, rot, atk_range, self)
+    return posi
+
+func set_direction(action,  dir):
+    direction=dir
+    var dir_s = get_direction()
+    switch_anim(action, dir_s)
+
+func switch_anim(action, dir_s):
+    img.animation=action+"_"+dir_s    
 
 func get_direction():
-    var dir_s="down"
+    var dir_s="front"
     var abs_x=abs(direction.x)
     var abs_y=abs(direction.y)
     if direction.y>0 and abs_y>abs_x: #down
-        dir_s="down"
+        dir_s="front"
     elif direction.y<0 and abs_y>abs_x: #up
-        dir_s="up"
+        dir_s="back"
     elif direction.x>0 and abs_y<abs_x: #right
         dir_s="right"
     elif direction.x<0 and abs_y<abs_x: #left

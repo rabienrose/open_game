@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://script/gift/gift_attr_add.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+c_name = "add_atk"
+desc = "ATK +10"
+val = 10
+attr_name = "atk"

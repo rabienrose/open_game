@@ -1,6 +1,6 @@
 extends Node2D
 
-var fct_fab = preload("res://assets/prefab/fct.tscn")
+var fct_fab = preload("res://prefab/ui/fct.tscn")
 
 var travel = Vector2(0, -80)
 var duration = 2
