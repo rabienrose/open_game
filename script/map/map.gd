@@ -15,9 +15,12 @@ var is_free_tile_dirty=true
 var navigation2d
 var map_w
 var map_h
+var rng
 
 func _ready():
     print("map")
+    rng = RandomNumberGenerator.new()
+    rng.randomize()
     tilemap=get_node("Navigation2D/TileMap")
     navigation2d=get_node("Navigation2D")
     tileset=tilemap.tile_set
@@ -176,12 +179,12 @@ func get_rand_spot(num, b_exclude, b_free):
         for item in ori_list:
             copy_list.append(item)
         for i in range(num):
-            var rand_i=randi() % copy_list.size()
+            var rand_i=rng.randi() % copy_list.size()
             re_list.append(copy_list[rand_i])
             copy_list.erase(copy_list[rand_i])
     else:
         for i in range(num):
-            var rand_i=randi() % ori_list.size()
+            var rand_i=rng.randi() % ori_list.size()
             re_list.append(ori_list[rand_i])
     
     return re_list

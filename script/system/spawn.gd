@@ -14,8 +14,17 @@ func on_create(map_, chara_mgr_):
     var content = file.get_as_text()
     var re = JSON.parse(content)
     player_name_list=re.result
-    chara_name_list.append("mage_f")
-    chara_name_list.append("sword_m")
+    var dir = Directory.new()
+    if dir.open("res://prefab/chara") == OK:
+        dir.list_dir_begin()
+        var file_name = "."
+        var chara_count=0
+        while file_name != "":
+            file_name = dir.get_next()
+            if not "chamo" in file_name:
+                continue
+            var bare_name=file_name.split(".")[0]
+            chara_name_list.append(bare_name)
     var tile_size=map.get_tile_size()
     cell_offset=Vector2(tile_size/2,tile_size-5)
 

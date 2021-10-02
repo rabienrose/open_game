@@ -114,6 +114,10 @@ window/size/width=1200
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot-plugin-refresher/plugin.cfg", "res://addons/open_world_tools/plugin.cfg" )
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
