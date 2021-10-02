@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/open_world_tools/parse_sprite.gd" type="Script" id=1]
+
+[node name="plugin" type="Control"]
+anchor_right = 0.2
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="import_sprite" type="Button" parent="VBoxContainer"]
+margin_right = 240.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 24.6981, -29.6463 )
+text = "Import Sprite"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="import_chara2" type="Button" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 240.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 24.6981, -29.6463 )
+text = "Import Chara"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[connection signal="button_down" from="VBoxContainer/import_sprite" to="VBoxContainer/import_sprite" method="_on_import_sprite_down"]
+[connection signal="button_down" from="VBoxContainer/import_chara2" to="VBoxContainer/import_chara2" method="_on_import_chara_down"]
