@@ -6,8 +6,11 @@ var cam
 var chara_mgr
 var gift_mgr
 var posion_circle
+var rng
 
 func _ready():
+    rng = RandomNumberGenerator.new()
+    rng.randomize()
     map=get_node("map")
     var maze_gen = load("res://res/system/maze_gen.tres")
     maze_gen.on_create(map)

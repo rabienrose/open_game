@@ -7,11 +7,13 @@ var last_x_free_range=[]
 var last_y_free_range=[]
 var cur_lev=0
 var map
-
+var rng
 export(Array, String) var tile_names
 export(int) var circle_step=5
 
 func _ready():
+    rng = RandomNumberGenerator.new()
+    rng.randomize()
     print("posion_circle")
     timer = Timer.new()
     timer.set_wait_time(circle_step)
@@ -37,8 +39,8 @@ func shrink_free_area():
         return false
     var temp_h_x_r=[temp_h_x-half_size_new, temp_h_x+half_size_new]
     var temp_h_y_r=[temp_h_y-half_size_new, temp_h_y+half_size_new]
-    var x_rand = randi() % int(temp_h_x_r[1]-temp_h_x_r[0])+temp_h_x_r[0]
-    var y_rand = randi() % int(temp_h_y_r[1]-temp_h_y_r[0])+temp_h_y_r[0]
+    var x_rand = rng.randi() % int(temp_h_x_r[1]-temp_h_x_r[0])+temp_h_x_r[0]
+    var y_rand = rng.randi() % int(temp_h_y_r[1]-temp_h_y_r[0])+temp_h_y_r[0]
     var new_x_min=x_rand-half_size_new
     if new_x_min<x_free_range[0]:
         new_x_min=x_free_range[0]
@@ -63,7 +65,7 @@ func get_rand_spot_in_safe():
         for j in range(y_free_range[0]+1,y_free_range[1]):
             if not map.check_block(Vector2(i,j)):
                 temp_free_spot.append(Vector2(i,j))
-    var rand_i=randi() % temp_free_spot.size()
+    var rand_i=rng.randi() % temp_free_spot.size()
     return temp_free_spot[rand_i]
 
 func _on_timer_timeout():

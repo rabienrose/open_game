@@ -5,8 +5,12 @@ var chara_mgr
 var chara_name_list=[]
 var player_name_list=[]
 var cell_offset
+var rng
+    
 
 func on_create(map_, chara_mgr_):
+    rng = RandomNumberGenerator.new()
+    rng.randomize()
     map=map_
     chara_mgr=chara_mgr_
     var file = File.new()
@@ -31,7 +35,7 @@ func on_create(map_, chara_mgr_):
 func batch_spwan(num):
     var free_rand_posi = map.get_rand_spot(num,true,true)
     for i in range(free_rand_posi.size()):
-        var rand_chara_id=randi() % chara_name_list.size()
+        var rand_chara_id=rng.randi() % chara_name_list.size()
         var chara_name=chara_name_list[rand_chara_id]
         var name=player_name_list[i]
         var pos_m=map.convert_c_to_m_pos(free_rand_posi[i])+cell_offset
