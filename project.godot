@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://script/buf/buf_base.gd"
 }, {
+"base": "Area2D",
+"class": "bullet",
+"language": "GDScript",
+"path": "res://script/bullet/bullet.gd"
+}, {
 "base": "Camera2D",
 "class": "cam_pan",
 "language": "GDScript",
@@ -89,6 +94,7 @@ _global_script_class_icons={
 "ai_status_base": "",
 "attr_base": "",
 "buf_base": "",
+"bullet": "",
 "cam_pan": "",
 "character": "",
 "gift_base": "",
@@ -108,15 +114,23 @@ config/name="Zhongsheng"
 run/main_scene="res://game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+IntegerResolutionHandler="*res://addons/integer_resolution_handler/integer_resolution_handler.gd"
+
 [display]
 
-window/size/width=1200
+window/integer_resolution_handler/base_width=400
+window/integer_resolution_handler/base_height=700
+window/size/width=400
+window/size/height=700
+window/handheld/orientation="portrait"
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-plugin-refresher/plugin.cfg", "res://addons/open_world_tools/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/godot-plugin-refresher/plugin.cfg", "res://addons/integer_resolution_handler/plugin.cfg", "res://addons/open_world_tools/plugin.cfg" )
 
 [input_devices]
 
@@ -128,4 +142,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"

@@ -1,10 +1,13 @@
 extends Area2D
 
+class_name bullet
+
 export var speed = 250
 export var bullet_range = 200
 
 var cul_dis=0
 var sender
+var ignore_chara=null
 
 
 func shot(sender_, src_posi, rot):
@@ -22,6 +25,8 @@ func on_area_entered(area):
     if not is_instance_valid(sender):
         return
     if area==sender:
+        return
+    if area==ignore_chara:
         return
     if "attrs" in area:
         if ("hp" in area.attrs) and ("atk" in sender.attrs):

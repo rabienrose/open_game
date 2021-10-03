@@ -32,6 +32,9 @@ func _ready():
     posion_circle=get_node("posion_circle")
     posion_circle.init_by_map(map)
 
+    chara_mgr.add_chara("chamo_0",Vector2(1600,1600),"chamo")
+    # chara_mgr.add_chara("chamo_1",Vector2(1600,1650),"chamo1")
+
     
     
 

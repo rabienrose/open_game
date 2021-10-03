@@ -16,6 +16,7 @@ func on_create(map_, chara_mgr_):
     var file = File.new()
     file.open("res://config/names.json", File.READ)
     var content = file.get_as_text()
+    
     var re = JSON.parse(content)
     player_name_list=re.result
     var dir = Directory.new()

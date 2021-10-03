@@ -8,7 +8,6 @@ var rng
 func _ready():
     rng = RandomNumberGenerator.new()
     rng.randomize()
-    print("gift_mgr")
     var files = []
     var dir = Directory.new()
     dir.open(gift_res_folder)
@@ -18,7 +17,7 @@ func _ready():
         if file == "":
             break
         if ".tres" in file:
-            all_gifts.append(load(gift_res_folder+file).duplicate(true))
+            all_gifts.append(load(gift_res_folder+file).duplicate())
             
 func get_rand_gift():
     var i_rand = rng.randi() % all_gifts.size()

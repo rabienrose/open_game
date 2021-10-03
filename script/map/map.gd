@@ -18,19 +18,17 @@ var map_h
 var rng
 
 func _ready():
-    print("map")
     rng = RandomNumberGenerator.new()
     rng.randomize()
     tilemap=get_node("Navigation2D/TileMap")
     navigation2d=get_node("Navigation2D")
     tileset=tilemap.tile_set
-    # check_tile_chara_loop()
+    check_tile_chara_loop()
 
 func check_tile_chara_loop():
     var t_count=0
     while true:
         check_chara_tile_ok()
-        print(t_count, chara_tiles)
         t_count=t_count+1
         yield(get_tree().create_timer(1.0), "timeout")
 

@@ -14,7 +14,6 @@ export(int) var circle_step=5
 func _ready():
     rng = RandomNumberGenerator.new()
     rng.randomize()
-    print("posion_circle")
     timer = Timer.new()
     timer.set_wait_time(circle_step)
     timer.connect("timeout",self,"_on_timer_timeout") 

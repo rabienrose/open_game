@@ -6,4 +6,4 @@
 script = ExtResource( 1 )
 duration = 100
 c_name = "damage_buf"
-amount = -40
+amount = -20
