@@ -18,8 +18,11 @@ var cell_offset1 = {Vector2(0, -1):0, Vector2(1, 0):0,
                 Vector2(1, 1):0, Vector2(-1, 1):0,
                 Vector2(-1, -1):0, Vector2(1, -1):0}
 
+var rng
 
 func on_create(map_):
+    rng = RandomNumberGenerator.new()
+    rng.randomize()
     map=map_
 
 func visit_near(current, unvisited):
@@ -59,7 +62,7 @@ func step_rand_maze():
     
     var neighbors = check_neighbors(current, unvisited)
     if neighbors.size() > 0:
-        var next = neighbors[randi() % neighbors.size()]
+        var next = neighbors[rng.randi() % neighbors.size()]
         stack.append(current)
         visit_near(next, unvisited)
         var t_offset=(next-current)/2

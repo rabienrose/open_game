@@ -26,7 +26,7 @@ func place_skill(pos_m):
     if "atk_range" in owner.attrs:
         atk_range=owner.attrs["atk_range"].get_val()
     new_bullet.bullet_range=atk_range
-    world.get_node("/root/game/world/bullets").add_child(new_bullet)
+    world.get_node("bullets").add_child(new_bullet)
     new_bullet.shot(owner, src_posi, rot)
 
 

@@ -8,7 +8,7 @@ func _ready():
 func update_map(master_map):
     if proxy_map!=null:
         proxy_map.queue_free()
-    proxy_map = master_map.duplicate(DUPLICATE_USE_INSTANCING)
+    proxy_map = master_map.duplicate()
     proxy_map.render_target_update_mode=UPDATE_ONCE
     add_child(proxy_map)
     

@@ -54,7 +54,6 @@ func _on_import_sprite_down():
             if not "png" in file_name:
                 continue
             var texture = load(path_png+file_name)
-            print(file_name)
             for i in range(0,2):
                 for j in range(0,4):
                     var anim_sprite= SpriteFrames.new()

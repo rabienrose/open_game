@@ -10,7 +10,7 @@ func cal_tar_posi():
 
 func on_create(world_, owner_):
     .on_create(world_, owner_)
-    move_action=load("res://res/action/move_to.tres").duplicate(true)
+    move_action=load("res://res/action/move_to.tres").duplicate()
     move_action.on_create(world_, owner_)
 
 func do(delta):

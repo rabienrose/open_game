@@ -6,8 +6,11 @@ var cam
 var chara_mgr
 var gift_mgr
 var posion_circle
+var rng
 
 func _ready():
+    rng = RandomNumberGenerator.new()
+    rng.randomize()
     map=get_node("map")
     var maze_gen = load("res://res/system/maze_gen.tres")
     maze_gen.on_create(map)
@@ -28,6 +31,9 @@ func _ready():
     gift_mgr=get_node("gift_mgr")
     posion_circle=get_node("posion_circle")
     posion_circle.init_by_map(map)
+
+    chara_mgr.add_chara("chamo_0",Vector2(1600,1600),"chamo")
+    # chara_mgr.add_chara("chamo_1",Vector2(1600,1650),"chamo1")
 
     
     

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://script/bullet/bullet_split.gd" type="Script" id=1]
+[ext_resource path="res://prefab/bullet/bullet.tscn" type="PackedScene" id=2]
+
+[node name="root" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+split_fab = ExtResource( 2 )
+
+[node name="AnimatedSprite" parent="." index="0"]
+frame = 1

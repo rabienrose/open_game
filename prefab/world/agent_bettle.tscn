@@ -24,4 +24,4 @@ script = ExtResource( 3 )
 [node name="posion_circle" type="Node2D" parent="."]
 script = ExtResource( 10 )
 tile_names = [ "lava_25", "lava_50", "lava_75", "lava" ]
-circle_step = 3
+circle_step = 10

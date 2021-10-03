@@ -125,7 +125,6 @@ func get_plugin_path():
 
 
 func refresh_plugin(p_name):
-	print("Refreshing plugin: ", p_name)
 
 	var enabled = get_editor_interface().is_plugin_enabled(p_name)
 	if enabled: # can only disable an active plugin

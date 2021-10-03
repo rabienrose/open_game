@@ -59,7 +59,7 @@ func _ready():
     shape.add_to_group("self")
     fct_mgr=$"fct_mgr"
     for res in attr_res:
-        var attr_new=res.duplicate(true)
+        var attr_new=res.duplicate()
         attrs[attr_new.c_name]=attr_new
         attr_new.on_create(world, self)
         if attr_new.tick_hz_mode=="slow":
@@ -69,11 +69,11 @@ func _ready():
         if attr_new.tick_hz_mode=="fast":
             fast_tick_list[attr_new.c_name]=funcref(attr_new, "tick")
     for res in skill_res:
-        var skill_new=res.duplicate(true)
+        var skill_new=res.duplicate()
         skill_new.on_create(world, self)
         skills.append(skill_new)
     for res in action_res:
-        var action_new=res.duplicate(true)
+        var action_new=res.duplicate()
         action_new.on_create(world, self)
         actions[action_new.c_name]=action_new
     map.on_chara_create(self, position)
@@ -88,7 +88,7 @@ func on_create(chara_name_,name_, pos_m):
 func add_buf(buf_res):
     if buf_res.c_name in bufs:
         return
-    var buf_new=buf_res.duplicate(true)
+    var buf_new=buf_res.duplicate()
     bufs[buf_new.c_name]=buf_new
     buf_new.on_create(world, self)
     if buf_new.tick_hz_mode=="slow":

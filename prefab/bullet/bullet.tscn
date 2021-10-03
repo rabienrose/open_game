@@ -6,14 +6,14 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.79193, 3.65712 )
 
-[node name="fireball" type="Area2D"]
+[node name="root" type="Area2D"]
 position = Vector2( -35.954, -20.1293 )
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "fireball"
-frame = 6
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
