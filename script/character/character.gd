@@ -15,6 +15,7 @@ var bar_yellow
 var map
 var world
 var fct_mgr
+var msg
 
 var direction:Vector2
 var dir_posi_table={}
@@ -37,6 +38,8 @@ var actions={}
 var attrs={}
 var bufs={}
 
+var dead=false
+
 export(Array, Resource) var attr_res
 export(Array, Resource) var skill_res
 export(Array, Resource) var action_res
@@ -44,6 +47,7 @@ export(Array, Resource) var action_res
 func _ready():
     world=get_node("/root/game/world")
     map=world.get_node("map")
+    msg=world.get_node("msg_center")
     dir_posi_table["front"]=$"down_shot"
     dir_posi_table["back"]=$"up_shot"
     dir_posi_table["right"]=$"right_shot"
@@ -165,11 +169,11 @@ func move(d_posi):
     z_index=position.y
     
 func _unhandled_input(event):
-   pass
+    pass
 
 func _input_event(viewport, event, shape_idx):
     if event is InputEventMouseButton and event.pressed:
-        pass
+        msg.emit_signal("show_chara_info", self)  
 
 func get_fire_position():
     var dir_s = get_direction()

@@ -19,6 +19,8 @@ func do(delta):
 func cal_score():
     var charas = world.map.get_near_characters(owner.position, 5, 10, owner)
     for chara in charas:
+        if not is_instance_valid(chara):
+            continue
         var dis = (chara.position-owner.position).length()
         var atk_range=128
         if "atk_range" in owner.attrs:

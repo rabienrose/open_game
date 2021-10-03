@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://script/world/agent_bettle.gd" type="Script" id=1]
 [ext_resource path="res://prefab/map/map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/system/gift_mgr.gd" type="Script" id=3]
+[ext_resource path="res://prefab/ui/ui_rank.tscn" type="PackedScene" id=4]
+[ext_resource path="res://script/system/msg_center.gd" type="Script" id=5]
 [ext_resource path="res://prefab/system/chara_mgr.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prefab/system/cam_pan.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefab/ui/ui_chara_info.tscn" type="PackedScene" id=8]
 [ext_resource path="res://script/system/posion_circle.gd" type="Script" id=10]
 
 [node name="root" type="Node2D"]
@@ -25,3 +28,12 @@ script = ExtResource( 3 )
 script = ExtResource( 10 )
 tile_names = [ "lava_25", "lava_50", "lava_75", "lava" ]
 circle_step = 10
+
+[node name="msg_center" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ui_chara_info" parent="CanvasLayer" instance=ExtResource( 8 )]
+
+[node name="ui_rank" parent="CanvasLayer" instance=ExtResource( 4 )]
