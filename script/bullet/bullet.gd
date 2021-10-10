@@ -22,13 +22,15 @@ func _physics_process(delta):
     cul_dis=cul_dis+speed * delta
 
 func on_area_entered(area):
+    var body_tmp=area.get_parent()
     if not is_instance_valid(sender):
         return
-    if area==sender:
+    if body_tmp==sender:
         return
-    if area==ignore_chara:
+    if body_tmp==ignore_chara:
         return
-    if "attrs" in area:
-        if ("hp" in area.attrs) and ("atk" in sender.attrs):
-            area.attrs["hp"].apply_damage(sender.attrs["atk"].get_val(), sender)
+    
+    if "attrs" in body_tmp:
+        if ("hp" in body_tmp.attrs) and ("atk" in sender.attrs):
+            body_tmp.attrs["hp"].apply_damage(sender.attrs["atk"].get_val(), sender)
         queue_free()

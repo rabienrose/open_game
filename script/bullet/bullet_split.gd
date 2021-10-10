@@ -9,17 +9,18 @@ func new_split_bullet(area,angle):
     get_node("/root/game/world/bullets").add_child(new_bullet)
 
 func on_area_entered(area):  
+    var body_tmp=area.get_parent()
     if not is_instance_valid(sender):
         return
-    if area==sender:
+    if body_tmp==sender:
         return
-    if area==ignore_chara:
+    if body_tmp==ignore_chara:
         return
-    if not "attrs" in area:
+    if not "attrs" in body_tmp:
         return
     .on_area_entered(area)
-    new_split_bullet(area,0)
-    new_split_bullet(area,20)
-    new_split_bullet(area,-20)
+    new_split_bullet(body_tmp,0)
+    new_split_bullet(body_tmp,20)
+    new_split_bullet(body_tmp,-20)
     
     

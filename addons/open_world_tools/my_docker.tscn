@@ -15,9 +15,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="import_sprite" type="Button" parent="VBoxContainer"]
-margin_right = 240.0
+[node name="parse_tga" type="Button" parent="VBoxContainer"]
+margin_right = 97.0
 margin_bottom = 20.0
+rect_pivot_offset = Vector2( 24.6981, -29.6463 )
+text = "Parse TGA"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="import_sprite" type="Button" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 97.0
+margin_bottom = 44.0
 rect_pivot_offset = Vector2( 24.6981, -29.6463 )
 text = "Import Sprite"
 script = ExtResource( 1 )
@@ -26,9 +37,9 @@ __meta__ = {
 }
 
 [node name="import_chara2" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 240.0
-margin_bottom = 44.0
+margin_top = 48.0
+margin_right = 97.0
+margin_bottom = 68.0
 rect_pivot_offset = Vector2( 24.6981, -29.6463 )
 text = "Import Chara"
 script = ExtResource( 1 )
@@ -36,5 +47,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[connection signal="button_down" from="VBoxContainer/parse_tga" to="VBoxContainer/parse_tga" method="_on_parse_tga_button_down"]
 [connection signal="button_down" from="VBoxContainer/import_sprite" to="VBoxContainer/import_sprite" method="_on_import_sprite_down"]
 [connection signal="button_down" from="VBoxContainer/import_chara2" to="VBoxContainer/import_chara2" method="_on_import_chara_down"]

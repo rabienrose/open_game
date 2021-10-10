@@ -18,6 +18,7 @@ var map_h
 var rng
 
 func _ready():
+    
     rng = RandomNumberGenerator.new()
     rng.randomize()
     tilemap=get_node("Navigation2D/TileMap")
@@ -104,9 +105,12 @@ func on_chara_move(chara, old_pos_m, cur_pos_m):
         if not cur_pos_c in chara_tiles:
             chara_tiles[cur_pos_c]={}
         chara_tiles[cur_pos_c][chara]=1
-        chara_tiles[old_pos_c].erase(chara)
-        if chara_tiles[old_pos_c].size()==0:
-            chara_tiles.erase(old_pos_c)
+        if (not old_pos_c in chara_tiles) or (not chara in chara_tiles[old_pos_c]):
+            on_chara_remove(chara) 
+        else:
+            chara_tiles[old_pos_c].erase(chara)
+            if chara_tiles[old_pos_c].size()==0:
+                chara_tiles.erase(old_pos_c)
         
 
 func on_chara_create(chara, cur_pos_m):
@@ -120,6 +124,8 @@ func on_chara_remove(chara):
     for tile in chara_tiles:
         if chara in chara_tiles[tile]:
             chara_tiles[tile].erase(chara)
+            if chara_tiles[tile].size()==0:
+                chara_tiles.erase(tile)
             break
     
 func clear_map():
@@ -198,10 +204,9 @@ func check_ray(src_char, tar_char):
     var temp_offset=Vector2(0,-20)
     var src_posi=src_char.position+temp_offset
     var tar_posi=tar_char.position+temp_offset
-    var result = space_state.intersect_ray(src_posi, tar_posi, [src_char], src_char.collision_layer, true, true)
-    if result:
-        if result.collider==tar_char:
-            return true
+    var result = space_state.intersect_ray(src_posi, tar_posi, [], tilemap.get_collision_layer(), true, false)
+    if not "collider" in result:
+        return true
     return false
 
 func convert_m_to_c_pos(pos_c):

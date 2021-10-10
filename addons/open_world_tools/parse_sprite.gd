@@ -39,6 +39,30 @@ func _on_import_chara_down():
             f_out.store_string(new_chara_text)
             f_out.close()
 
+func convert_tga(filename):
+    var f= File.new()
+    f.open(filename,1) 
+    f.get_32()
+    var img_w = f.get_16()
+    var img_h = f.get_16()
+    f.seek(0x18)
+    var img=Image.new()
+    img.create(img_w, img_h, false, 5)
+    img.lock()
+    for i in range(img_h):
+        for j in range(img_w):
+            var b= f.get_8()/255.0
+            var g= f.get_8()/255.0
+            var r= f.get_8()/255.0
+            var a= f.get_8()/255.0
+            img.set_pixel(j,i,Color(r,g,b,a))
+    img.unlock()
+    var bare_name=filename.split(".")[0].split("/")[-1]
+    img.save_png(bare_name+".png")
+
+func _on_parse_tga_button_down():
+    var filename="/home/rabienrose/Documents/code/temp/skillicon"
+    convert_tga(filename+"/SI_3029.TGA")
 
 func _on_import_sprite_down():
     var dir = Directory.new()
@@ -76,3 +100,6 @@ func _on_import_sprite_down():
                     var full_name="chamo_"+str(chara_count)
                     ResourceSaver.save("res://res/chara/"+full_name+".tres", anim_sprite)
                     chara_count=chara_count+1
+
+
+

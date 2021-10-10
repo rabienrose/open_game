@@ -40,6 +40,6 @@ func batch_spwan(num):
         var chara_name=chara_name_list[rand_chara_id]
         var name=player_name_list[i]
         var pos_m=map.convert_c_to_m_pos(free_rand_posi[i])+cell_offset
-        chara_mgr.add_chara(chara_name,pos_m,name)
+        chara_mgr.add_chara(chara_name,pos_m,name, false)
 
 

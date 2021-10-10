@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 c_name = "hp"
+val = 0
+max_val = 0
+min_val = 0
 max_hp = 100

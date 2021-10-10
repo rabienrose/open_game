@@ -27,7 +27,7 @@ func do(delta):
                 var speed=10
                 if "speed" in owner.attrs:
                     speed=owner.attrs["speed"].get_val()
-                owner.move(owner.direction*speed*delta)
+                owner.move(owner.direction*speed)
             else:
                 path_node_cur=path_node_cur+1
 

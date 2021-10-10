@@ -5,6 +5,7 @@ class_name skill_base
 var use_checker
 
 export var c_name=""
+export var icon_name=""
 
 var owner
 var world

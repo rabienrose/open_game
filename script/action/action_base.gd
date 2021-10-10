@@ -15,7 +15,7 @@ func do(delta):
     pass
 
 func cal_score():
-    pass
+    return -1000
 
 func on_switch_action(old_action, new_action):
     pass

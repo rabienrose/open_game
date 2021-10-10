@@ -1,20 +1,21 @@
-extends Area2D
+extends KinematicBody2D
 
 class_name character
 
 var chara_name
 var chara_type="base"
 
-var shape:CollisionShape2D
 var img:AnimatedSprite
 var hp_bar:TextureProgress
 var bar_red 
 var bar_green 
 var bar_yellow
+var body_col_shape
 
 var map
 var world
 var fct_mgr
+var msg
 
 var direction:Vector2
 var dir_posi_table={}
@@ -37,6 +38,10 @@ var actions={}
 var attrs={}
 var bufs={}
 
+var is_player=false
+
+var dead=false
+
 export(Array, Resource) var attr_res
 export(Array, Resource) var skill_res
 export(Array, Resource) var action_res
@@ -44,10 +49,12 @@ export(Array, Resource) var action_res
 func _ready():
     world=get_node("/root/game/world")
     map=world.get_node("map")
+    msg=world.get_node("msg_center")
     dir_posi_table["front"]=$"down_shot"
     dir_posi_table["back"]=$"up_shot"
     dir_posi_table["right"]=$"right_shot"
     dir_posi_table["left"]=$"left_shot"
+    body_col_shape=$"col_body"
     img=$"image"
     hp_bar=$"hp_bar"
     hp_bar.visible=false
@@ -55,8 +62,6 @@ func _ready():
     bar_green = preload("res://binary/images/ui/barHorizontal_green.png")
     bar_yellow = preload("res://binary/images/ui/barHorizontal_yellow.png")
     img.playing=false
-    shape=$"CollisionShape2D"
-    shape.add_to_group("self")
     fct_mgr=$"fct_mgr"
     for res in attr_res:
         var attr_new=res.duplicate()
@@ -79,11 +84,13 @@ func _ready():
     map.on_chara_create(self, position)
     
     
-func on_create(chara_name_,name_, pos_m):
+func on_create(chara_name_,name_, pos_m, is_player_):
     position=pos_m
     set_name(name_)
     chara_name=chara_name_
-    
+    is_player=is_player_
+    if is_player==false:
+        get_node("player_control").queue_free()
 
 func add_buf(buf_res):
     if buf_res.c_name in bufs:
@@ -117,7 +124,7 @@ func remove_skill():
 
 func _physics_process(delta):
     time_cul=time_cul+delta
-    if active_action!=null:
+    if active_action!=null :
         active_action.do(delta)
     if time_cul-fast_tick_time>0.01:
         var d_time=time_cul-fast_tick_time
@@ -132,19 +139,19 @@ func _physics_process(delta):
         
     if time_cul-slow_tick_time>1:
         var d_time=time_cul-slow_tick_time
-        var max_score=-1
-        var max_action=null
-        for key in actions:
-            var score = actions[key].cal_score()
-            if max_score==-1 or score>max_score:
-                max_score=score
-                max_action=actions[key]
-        
-        if max_action!=active_action:
-            if active_action!=null:
-                active_action.on_switch_action(active_action, max_action)
-            max_action.on_switch_action(active_action, max_action)
-            active_action=max_action
+        if is_player==false:
+            var max_score=-1
+            var max_action=null
+            for key in actions:
+                var score = actions[key].cal_score()
+                if max_score==-1 or score>max_score:
+                    max_score=score
+                    max_action=actions[key]
+            if max_action!=active_action:
+                if active_action!=null:
+                    active_action.on_switch_action(active_action, max_action)
+                max_action.on_switch_action(active_action, max_action)
+                active_action=max_action
         for key in slow_tick_list:
             slow_tick_list[key].call_func(d_time)
         slow_tick_time=time_cul
@@ -154,22 +161,19 @@ func set_name(name_):
     get_node("name_board").text=name_
 
 func move(d_posi):
+    move_and_slide(d_posi)
     cur_mov_dist=cur_mov_dist+d_posi.length()
     if last_report_pos_c==null:
         last_report_pos_c=position
-    position=position+d_posi
     if cur_mov_dist>20:
         cur_mov_dist=0
         map.on_chara_move(self, last_report_pos_c, position)
         last_report_pos_c=position
     z_index=position.y
-    
-func _unhandled_input(event):
-   pass
 
 func _input_event(viewport, event, shape_idx):
     if event is InputEventMouseButton and event.pressed:
-        pass
+        msg.emit_signal("show_chara_info", self)  
 
 func get_fire_position():
     var dir_s = get_direction()

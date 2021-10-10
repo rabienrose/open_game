@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Control",
+"class": "Joystick",
+"language": "GDScript",
+"path": "res://third/joystick/Joystick.gd"
+}, {
 "base": "Resource",
 "class": "action_base",
 "language": "GDScript",
@@ -39,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://script/system/cam_pan.gd"
 }, {
-"base": "Area2D",
+"base": "KinematicBody2D",
 "class": "character",
 "language": "GDScript",
 "path": "res://script/character/character.gd"
@@ -79,6 +84,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://script/attr/num_attr.gd"
 }, {
+"base": "Node2D",
+"class": "player_control",
+"language": "GDScript",
+"path": "res://script/character/player_control.gd"
+}, {
+"base": "Node2D",
+"class": "player_control_joy",
+"language": "GDScript",
+"path": "res://script/character/player_control_joy.gd"
+}, {
 "base": "Resource",
 "class": "skill_base",
 "language": "GDScript",
@@ -90,6 +105,7 @@ _global_script_classes=[ {
 "path": "res://script/tile/tile_base.gd"
 } ]
 _global_script_class_icons={
+"Joystick": "",
 "action_base": "",
 "ai_status_base": "",
 "attr_base": "",
@@ -104,6 +120,8 @@ _global_script_class_icons={
 "map": "",
 "maze_gen": "",
 "num_attr": "",
+"player_control": "",
+"player_control_joy": "",
 "skill_base": "",
 "tile_base": ""
 }
@@ -136,6 +154,12 @@ enabled=PoolStringArray( "res://addons/godot-plugin-refresher/plugin.cfg", "res:
 
 pointing/emulate_touch_from_mouse=true
 
+[layer_names]
+
+2d_physics/layer_2="map_obs"
+2d_physics/layer_3="bullet"
+2d_physics/layer_4="body"
+
 [physics]
 
 common/enable_pause_aware_picking=true
@@ -143,4 +167,6 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false
