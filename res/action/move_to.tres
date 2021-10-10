@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-c_name = ""
+c_name = "move_to"

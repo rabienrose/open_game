@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://script/world/agent_bettle.gd" type="Script" id=1]
 [ext_resource path="res://prefab/map/map.tscn" type="PackedScene" id=2]
@@ -8,7 +8,9 @@
 [ext_resource path="res://prefab/system/chara_mgr.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prefab/system/cam_pan.tscn" type="PackedScene" id=7]
 [ext_resource path="res://prefab/ui/ui_chara_info.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefab/ui/ui_skill.tscn" type="PackedScene" id=9]
 [ext_resource path="res://script/system/posion_circle.gd" type="Script" id=10]
+[ext_resource path="res://third/joystick/Joystick.tscn" type="PackedScene" id=11]
 
 [node name="root" type="Node2D"]
 script = ExtResource( 1 )
@@ -34,6 +36,16 @@ script = ExtResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Joystick" parent="CanvasLayer" instance=ExtResource( 11 )]
+
 [node name="ui_chara_info" parent="CanvasLayer" instance=ExtResource( 8 )]
 
 [node name="ui_rank" parent="CanvasLayer" instance=ExtResource( 4 )]
+
+[node name="ui_skill" parent="CanvasLayer" instance=ExtResource( 9 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -160.0
+margin_top = -160.0

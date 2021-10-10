@@ -47,6 +47,8 @@ func on_dead(attcker):
         world.msg.emit_signal("chara_die", "", -1, owner.name)   
     world.map.on_chara_remove(owner)
     owner.queue_free()
+    if owner.is_player==true:
+        world.msg.emit_signal("game_over")   
 
 func apply_damage(val, attacker):
     if attacker!= null and attacker.dead==true:

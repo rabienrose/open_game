@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://res/chara/chamo_0.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://script/character/character.gd" type="Script" id=2]
@@ -13,13 +13,18 @@
 [ext_resource path="res://res/skill/fireball.tres" type="Resource" id=11]
 [ext_resource path="res://res/action/fire_bullet.tres" type="Resource" id=12]
 [ext_resource path="res://res/attr/atk_range.tres" type="Resource" id=13]
+[ext_resource path="res://script/character/player_control_joy.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 18.264 )
+extents = Vector2( 5.21448, 4.5186 )
 
-[node name="root" type="Area2D" groups=[
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 19.5 )
+
+[node name="root" type="KinematicBody2D" groups=[
 "chara",
 ]]
+collision_mask = 2
 script = ExtResource( 2 )
 attr_res = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 13 ) ]
 skill_res = [ ExtResource( 11 ) ]
@@ -53,8 +58,8 @@ position = Vector2( 15, -20 )
 [node name="left_shot" type="Position2D" parent="."]
 position = Vector2( -15, -20 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -20.4185 )
+[node name="col_floor" type="CollisionShape2D" parent="."]
+position = Vector2( -0.353569, -2.38729 )
 shape = SubResource( 1 )
 
 [node name="fct_mgr" type="Node2D" parent="."]
@@ -71,3 +76,14 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="player_control" type="Node2D" parent="."]
+script = ExtResource( 14 )
+
+[node name="col_body" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="col_body"]
+position = Vector2( 0.25, -19.75 )
+shape = SubResource( 2 )

@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource( 1 )
 c_name = "fireball"
+icon_name = ""
 bullet_fab = ExtResource( 2 )
