@@ -171,10 +171,6 @@ func move(d_posi):
         last_report_pos_c=position
     z_index=position.y
 
-func _input_event(viewport, event, shape_idx):
-    if event is InputEventMouseButton and event.pressed:
-        msg.emit_signal("show_chara_info", self)  
-
 func get_fire_position():
     var dir_s = get_direction()
     var posi = dir_posi_table[dir_s].global_position
@@ -202,3 +198,6 @@ func get_direction():
         dir_s="left"
     return dir_s
 
+func _on_col_body_input_event(viewport, event, shape_idx):
+    if event is InputEventScreenTouch and event.pressed:
+        msg.emit_signal("show_chara_info", self)  

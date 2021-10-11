@@ -87,3 +87,6 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="col_body"]
 position = Vector2( 0.25, -19.75 )
 shape = SubResource( 2 )
+
+[connection signal="input_event" from="." to="." method="_on_root_input_event"]
+[connection signal="input_event" from="col_body" to="." method="_on_col_body_input_event"]

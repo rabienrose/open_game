@@ -7,6 +7,10 @@ func _ready():
 func on_create(map_):
     map=map_
     
+func clear_charas():
+    for n in get_children():
+        remove_child(n)
+        n.queue_free()
 
 func add_chara(chara, pos_m, player_name, is_player):
     var temp_tscn = load("res://prefab/chara/"+chara+".tscn")

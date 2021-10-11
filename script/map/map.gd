@@ -129,6 +129,7 @@ func on_chara_remove(chara):
             break
     
 func clear_map():
+    chara_tiles={}
     custom_tiles={}
     tilemap.clear()
     is_free_tile_dirty=true
