@@ -15,6 +15,7 @@ func on_skill_down(skill_type):
     var skill = character.skills[0]
     if skill.can_use():
         var charas = map.get_near_characters(character.position, 5, 10, character)
+        var has_target=false
         for chara in charas:
             if not is_instance_valid(chara):
                 continue
@@ -24,6 +25,9 @@ func on_skill_down(skill_type):
                 atk_range=character.attrs["atk_range"].get_val()
             if dis < atk_range-20 and map.check_ray(character, chara):
                 skill.place_skill(chara.position)
+                has_target=true
+        if has_target==false:
+            skill.place_skill(character.position+character.direction)
     skill_down=true
 
 func on_skill_up(skill_type):

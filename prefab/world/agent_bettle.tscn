@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://script/world/agent_bettle.gd" type="Script" id=1]
 [ext_resource path="res://prefab/map/map.tscn" type="PackedScene" id=2]
@@ -11,8 +11,13 @@
 [ext_resource path="res://prefab/ui/ui_skill.tscn" type="PackedScene" id=9]
 [ext_resource path="res://script/system/posion_circle.gd" type="Script" id=10]
 [ext_resource path="res://third/joystick/Joystick.tscn" type="PackedScene" id=11]
+[ext_resource path="res://binary/font/Xolonium-Regular.ttf" type="DynamicFontData" id=12]
 
-[node name="root" type="Node2D"]
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 12 )
+
+[node name="root2" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="map" parent="." instance=ExtResource( 2 )]
@@ -29,7 +34,6 @@ script = ExtResource( 3 )
 [node name="posion_circle" type="Node2D" parent="."]
 script = ExtResource( 10 )
 tile_names = [ "lava_25", "lava_50", "lava_75", "lava" ]
-circle_step = 10
 
 [node name="msg_center" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -49,3 +53,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -160.0
 margin_top = -160.0
+
+[node name="restart" type="Button" parent="CanvasLayer"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -156.0
+margin_top = -122.0
+margin_right = -70.0
+margin_bottom = -80.0
+custom_fonts/font = SubResource( 1 )
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_down" from="CanvasLayer/restart" to="." method="_on_restart_button_down"]

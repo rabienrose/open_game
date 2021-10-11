@@ -20,6 +20,7 @@ func add_hp(val):
         hp=max_hp
     else:
         hp=hp+val
+    update_hp()
 
 func update_hp():
     owner.hp_bar.texture_progress = owner.bar_green

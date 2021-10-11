@@ -7,7 +7,6 @@ var avai_area: Rect2
 var viewport_size: Vector2
 var half_w:float
 var half_h:float
-var skill_down=false
 var msg
 var allow_pan=false
 
@@ -24,6 +23,7 @@ func on_create(avai_area_, viewport_size_):
     position=Vector2(avai_area.position.x+avai_area.size.x/2, avai_area.position.y+avai_area.size.y/2)
 
 func _unhandled_input(event):
+    
     if allow_pan==false:
         return
     if event is InputEventScreenTouch:
@@ -35,23 +35,16 @@ func _unhandled_input(event):
     if event is InputEventScreenDrag:
         events[event.index] = event
         if events.size() == 1:
-            if skill_down==false:
-                var next_p=position-event.relative.rotated(rotation) * zoom.x
-                if next_p.x<half_w+avai_area.position.x:
-                    next_p.x=half_w+avai_area.position.x
-                if next_p.x>avai_area.end.x-half_w:
-                    next_p.x=avai_area.end.x-half_w
-                if next_p.y<half_h+avai_area.position.y:
-                    next_p.y=half_h+avai_area.position.y
-                if next_p.y>avai_area.end.y-half_h:
-                    next_p.y=avai_area.end.y-half_h
-                position=next_p
+            var next_p=position-event.relative.rotated(rotation) * zoom.x
+            if next_p.x<half_w+avai_area.position.x:
+                next_p.x=half_w+avai_area.position.x
+            if next_p.x>avai_area.end.x-half_w:
+                next_p.x=avai_area.end.x-half_w
+            if next_p.y<half_h+avai_area.position.y:
+                next_p.y=half_h+avai_area.position.y
+            if next_p.y>avai_area.end.y-half_h:
+                next_p.y=avai_area.end.y-half_h
+            position=next_p
 
 func jump_to(pos_m):
     position=pos_m
-
-func on_skill_down(skill_type):
-    skill_down=true
-
-func on_skill_up(skill_type):
-    skill_down=false
