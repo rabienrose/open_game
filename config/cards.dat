@@ -1,0 +1,10 @@
+hp_1,血+1,50
+hp_all,血加满,100
+atk_1,攻击+1,50
+atk_all,攻击加满,100
+walk_spd_1,移动速度+1,80
+walk_spd_all,移动速度加满,3
+atk_spd_1,攻击速度+1,60
+atk_spd_all,攻击速度加满,2
+bullet_spd_1,子弹速度+1,60
+bullet_spd_all,子弹速度加满,1

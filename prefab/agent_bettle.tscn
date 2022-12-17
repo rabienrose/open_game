@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://prefab/ui_rank.tscn" type="PackedScene" id=1]
+[ext_resource path="res://res/tileset/tileset_1.tres" type="TileSet" id=2]
+[ext_resource path="res://script/minimap.gd" type="Script" id=3]
+[ext_resource path="res://script/agent_bettle.gd" type="Script" id=4]
+[ext_resource path="res://script/cam_pan.gd" type="Script" id=5]
+[ext_resource path="res://script/card_selector.gd" type="Script" id=6]
+[ext_resource path="res://prefab/selector_item.tscn" type="PackedScene" id=7]
+
+[node name="Root" type="Node2D"]
+script = ExtResource( 4 )
+cam_path = NodePath("Camera2D")
+tilemap_path = NodePath("TileMap")
+units_path = NodePath("Chars")
+bullets_path = NodePath("Bullets")
+rank_ui_path = NodePath("CanvasLayer/UIRank")
+minimap_path = NodePath("CanvasLayer/MiniMap")
+card_selector_path = NodePath("CanvasLayer/CardSelector")
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UIRank" parent="CanvasLayer" instance=ExtResource( 1 )]
+margin_left = 42.0
+margin_top = 25.0
+margin_right = 292.0
+margin_bottom = 465.0
+
+[node name="MiniMap" type="TextureRect" parent="CanvasLayer"]
+margin_left = 1998.0
+margin_top = 2.0
+margin_right = 2398.0
+margin_bottom = 402.0
+script = ExtResource( 3 )
+
+[node name="CardSelector" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
+margin_left = 2150.0
+margin_top = 440.0
+margin_right = 2350.0
+margin_bottom = 1190.0
+script = ExtResource( 6 )
+btns = [ NodePath("Item"), NodePath("Item2"), NodePath("Item3") ]
+
+[node name="Item" parent="CanvasLayer/CardSelector" instance=ExtResource( 7 )]
+margin_top = 23.0
+margin_bottom = 223.0
+size_flags_vertical = 6
+
+[node name="Item2" parent="CanvasLayer/CardSelector" instance=ExtResource( 7 )]
+margin_top = 274.0
+margin_bottom = 474.0
+size_flags_vertical = 6
+
+[node name="Item3" parent="CanvasLayer/CardSelector" instance=ExtResource( 7 )]
+margin_top = 526.0
+margin_bottom = 726.0
+size_flags_vertical = 6
+
+[node name="Chars" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1409, 777 )
+current = true
+script = ExtResource( 5 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 150, 150 )
+collision_layer = 2
+bake_navigation = true
+format = 1
+
+[connection signal="button_up" from="CanvasLayer/CardSelector/Item" to="CanvasLayer/CardSelector" method="_on_Item_button_up"]
+[connection signal="button_up" from="CanvasLayer/CardSelector/Item2" to="CanvasLayer/CardSelector" method="_on_Item2_button_up"]
+[connection signal="button_up" from="CanvasLayer/CardSelector/Item3" to="CanvasLayer/CardSelector" method="_on_Item3_button_up"]

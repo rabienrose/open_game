@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://script/ui_rank.gd" type="Script" id=1]
+[ext_resource path="res://prefab/rank_item.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Theme" id=1]
+
+[node name="ui_rank" type="Control"]
+margin_right = 250.0
+margin_bottom = 440.0
+mouse_filter = 2
+script = ExtResource( 1 )
+rank_items_path = [ NodePath("rank_list/Item"), NodePath("rank_list/Item2"), NodePath("rank_list/Item3"), NodePath("rank_list/Item4"), NodePath("rank_list/Item5"), NodePath("rank_list/Item6"), NodePath("rank_list/Item7"), NodePath("rank_list/Item8"), NodePath("rank_list/Item9"), NodePath("rank_list/Item10") ]
+
+[node name="rank_list" type="VBoxContainer" parent="."]
+margin_right = 100.0
+margin_bottom = 110.0
+mouse_filter = 2
+theme = SubResource( 1 )
+
+[node name="Item" parent="rank_list" instance=ExtResource( 2 )]
+
+[node name="Item2" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 44.0
+margin_bottom = 84.0
+
+[node name="Item3" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 88.0
+margin_bottom = 128.0
+
+[node name="Item4" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 132.0
+margin_bottom = 172.0
+
+[node name="Item5" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 176.0
+margin_bottom = 216.0
+
+[node name="Item6" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 220.0
+margin_bottom = 260.0
+
+[node name="Item7" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 264.0
+margin_bottom = 304.0
+
+[node name="Item8" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 308.0
+margin_bottom = 348.0
+
+[node name="Item9" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 352.0
+margin_bottom = 392.0
+
+[node name="Item10" parent="rank_list" instance=ExtResource( 2 )]
+margin_top = 396.0
+margin_bottom = 436.0

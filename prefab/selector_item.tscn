@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://res/font/chinese_btn.tres" type="DynamicFont" id=1]
+
+[node name="Item" type="Button"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_fonts/font = ExtResource( 1 )
+text = "攻速+1"

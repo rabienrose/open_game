@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=3 format=2]
-
-[ext_resource path="res://script/skill/bullet.gd" type="Script" id=1]
-[ext_resource path="res://prefab/bullet/bullet_split.tscn" type="PackedScene" id=2]
-
-[resource]
-script = ExtResource( 1 )
-c_name = "split_fireball"
-bullet_fab = ExtResource( 2 )

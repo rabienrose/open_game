@@ -14,134 +14,52 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://third/joystick/Joystick.gd"
 }, {
-"base": "Resource",
-"class": "action_base",
-"language": "GDScript",
-"path": "res://script/action/action_base.gd"
-}, {
-"base": "Resource",
-"class": "ai_status_base",
-"language": "GDScript",
-"path": "res://script/ai/ai_status_base.gd"
-}, {
-"base": "Resource",
-"class": "attr_base",
-"language": "GDScript",
-"path": "res://script/attr/attr_base.gd"
-}, {
-"base": "Resource",
-"class": "buf_base",
-"language": "GDScript",
-"path": "res://script/buf/buf_base.gd"
-}, {
 "base": "Area2D",
 "class": "bullet",
 "language": "GDScript",
-"path": "res://script/bullet/bullet.gd"
+"path": "res://script/bullet.gd"
 }, {
 "base": "Camera2D",
 "class": "cam_pan",
 "language": "GDScript",
-"path": "res://script/system/cam_pan.gd"
+"path": "res://script/cam_pan.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "character",
 "language": "GDScript",
-"path": "res://script/character/character.gd"
-}, {
-"base": "Resource",
-"class": "gift_base",
-"language": "GDScript",
-"path": "res://script/gift/gift_base.gd"
-}, {
-"base": "action_base",
-"class": "idle_move",
-"language": "GDScript",
-"path": "res://script/action/idle_move.gd"
-}, {
-"base": "ai_status_base",
-"class": "idle_status",
-"language": "GDScript",
-"path": "res://script/ai/idle.gd"
-}, {
-"base": "tile_base",
-"class": "lava_tile",
-"language": "GDScript",
-"path": "res://script/tile/lava.gd"
-}, {
-"base": "Node2D",
-"class": "map",
-"language": "GDScript",
-"path": "res://script/map/map.gd"
-}, {
-"base": "Resource",
-"class": "maze_gen",
-"language": "GDScript",
-"path": "res://script/system/maze_gen.gd"
-}, {
-"base": "attr_base",
-"class": "num_attr",
-"language": "GDScript",
-"path": "res://script/attr/num_attr.gd"
-}, {
-"base": "Node2D",
-"class": "player_control",
-"language": "GDScript",
-"path": "res://script/character/player_control.gd"
+"path": "res://script/character.gd"
 }, {
 "base": "Node2D",
 "class": "player_control_joy",
 "language": "GDScript",
-"path": "res://script/character/player_control_joy.gd"
-}, {
-"base": "Resource",
-"class": "skill_base",
-"language": "GDScript",
-"path": "res://script/skill/skill_base.gd"
-}, {
-"base": "Resource",
-"class": "tile_base",
-"language": "GDScript",
-"path": "res://script/tile/tile_base.gd"
+"path": "res://script/player_control_joy.gd"
 } ]
 _global_script_class_icons={
 "Joystick": "",
-"action_base": "",
-"ai_status_base": "",
-"attr_base": "",
-"buf_base": "",
 "bullet": "",
 "cam_pan": "",
 "character": "",
-"gift_base": "",
-"idle_move": "",
-"idle_status": "",
-"lava_tile": "",
-"map": "",
-"maze_gen": "",
-"num_attr": "",
-"player_control": "",
-"player_control_joy": "",
-"skill_base": "",
-"tile_base": ""
+"player_control_joy": ""
 }
 
 [application]
 
 config/name="Zhongsheng"
-run/main_scene="res://game.tscn"
+run/main_scene="res://prefab/agent_bettle.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 IntegerResolutionHandler="*res://addons/integer_resolution_handler/integer_resolution_handler.gd"
+Global="*res://script/global.gd"
 
 [display]
 
-window/integer_resolution_handler/base_width=400
-window/integer_resolution_handler/base_height=700
-window/size/width=400
-window/size/height=700
+window/integer_resolution_handler/base_width=2400
+window/integer_resolution_handler/base_height=1200
+window/size/width=2400
+window/size/height=1200
+window/dpi/allow_hidpi=true
 window/handheld/orientation="portrait"
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
@@ -166,7 +84,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
