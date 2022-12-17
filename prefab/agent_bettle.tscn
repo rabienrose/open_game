@@ -36,7 +36,6 @@ margin_bottom = 402.0
 script = ExtResource( 3 )
 
 [node name="CardSelector" type="VBoxContainer" parent="CanvasLayer"]
-visible = false
 margin_left = 2150.0
 margin_top = 440.0
 margin_right = 2350.0

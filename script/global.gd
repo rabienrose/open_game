@@ -1,7 +1,7 @@
 extends Node
 
 signal input_choose_card(btn_index)
-signal get_new_frame()
+signal get_new_frame(frame_dat)
 
 var rng
 var map_size=40
@@ -13,9 +13,15 @@ var h_posion_lv=[20,14,7,3,0]
 var safe_area_lv=[14,7,3,0,0]
 var tile_cell_table=[0,1,5,6,7]
 
+func on_input_choose_card(btn_index):
+	var frame_dat={}
+	frame_dat["card_choose"]=btn_index
+	emit_signal("get_new_frame",frame_dat)
+
 func _ready():
 	rng = RandomNumberGenerator.new()
 	load_card_infos()
+	connect("input_choose_card", self, "on_input_choose_card")
 	# rng.randomize()
 
 func check_unit_valid(unit):

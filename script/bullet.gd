@@ -2,7 +2,7 @@ extends Area2D
 
 class_name bullet
 
-var speed = 250
+var speed = 200
 var bullet_range = 200
 
 var cul_dis=0

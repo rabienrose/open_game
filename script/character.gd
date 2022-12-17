@@ -24,6 +24,7 @@ var path_points=[]
 var path_node_cur=1
 var cur_mov_dist=0
 
+var bullet_spd=200
 var walk_spd=100
 var atk_range=4
 var atk_spd=0.5
@@ -70,6 +71,15 @@ func on_create(chara_name_,name_, pos_m, is_player_, _world):
 	set_name(name_)
 	chara_name=chara_name_
 	is_player=is_player_
+	if is_player:
+		Global.connect("get_new_frame",self, "on_get_new_frame")
+
+func on_get_new_frame(frame_dat):
+	if "card_choose" in frame_dat:
+		var card_id=card_option_list[0][frame_dat["card_choose"]]
+		card_option_list.remove(0)
+		world.card_selector.update_ui()
+		apply_card(card_id)
 
 func _physics_process(delta):
 	var cur_time=OS.get_ticks_msec()
@@ -145,6 +155,7 @@ func attack(tar):
 	var src_posi = get_fire_position()
 	var rot=atan2(dir.y,dir.x)*180/3.1415926
 	new_bullet.bullet_range=atk_range
+	new_bullet.speed = bullet_spd
 	world.bullets.add_child(new_bullet)
 	new_bullet.shot(self, src_posi, rot)
 
@@ -251,3 +262,66 @@ func apply_card(card_id):
 		add_hp(1)
 	elif card_id=="hp_all":
 		add_hp(max_hp)
+	elif card_id=="atk_1":
+		atk=atk+1
+		if atk>10:
+			atk=10
+	elif card_id=="atk_all":
+		atk=10
+	elif card_id=="walk_spd_1":
+		walk_spd=walk_spd+50
+		if walk_spd>500:
+			walk_spd=500
+	elif card_id=="walk_spd_all":
+		walk_spd=500
+	elif card_id=="atk_spd_1":
+		atk_spd=stepify(1/(1/atk_spd-0.25), 0.2) 
+		if atk_spd>5:
+			atk_spd=5
+	elif card_id=="atk_spd_all":
+		atk_spd=5
+	elif card_id=="bullet_spd_1":
+		bullet_spd=bullet_spd+200
+		if bullet_spd>2000:
+			bullet_spd=2000
+	elif card_id=="bullet_spd_all":
+		bullet_spd=2000
+
+func get_card_effect(card_id):
+	var desc=""
+	if card_id=="hp_1":
+		var final_hp=hp+1
+		if final_hp>10:
+			final_hp=10
+		desc=str(hp)+"->"+str(final_hp)
+	elif card_id=="hp_all":
+		desc=str(hp)+"->"+str(10)
+	elif card_id=="atk_1":
+		var final_atk=atk+1
+		if final_atk>10:
+			final_atk=10
+		desc=str(atk)+"->"+str(final_atk)
+	elif card_id=="atk_all":
+		desc=str(atk)+"->"+str(10)
+	elif card_id=="walk_spd_1":
+		var final_walk_spd=int(walk_spd/50)+1
+		if final_walk_spd>10:
+			final_walk_spd=10
+		desc=str(int(walk_spd/50))+"->"+str(final_walk_spd)
+	elif card_id=="walk_spd_all":
+		desc=str(walk_spd/50)+"->"+str(10)
+	elif card_id=="atk_spd_1":
+		var final_atk_spd=stepify(1/(1/atk_spd-0.25), 0.2) 
+		if final_atk_spd>5:
+			final_atk_spd=5
+		desc=str(atk_spd)+"->"+str(final_atk_spd)
+	elif card_id=="atk_spd_all":
+		desc=str(atk_spd)+"->"+str(5)
+	elif card_id=="bullet_spd_1":
+		var final_bullet_spd=bullet_spd+200
+		if final_bullet_spd>2000:
+			final_bullet_spd=2000
+		desc=str(int(bullet_spd/200))+"->"+str(int(final_bullet_spd/200))
+	elif card_id=="bullet_spd_all":
+		desc=str(int(bullet_spd/200))+"->"+str(10)
+	return desc

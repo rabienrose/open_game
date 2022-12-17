@@ -1,10 +1,29 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://res/font/chinese_btn.tres" type="DynamicFont" id=1]
+[ext_resource path="res://script/card_selector_item.gd" type="Script" id=2]
 
 [node name="Item" type="Button"]
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
 custom_fonts/font = ExtResource( 1 )
-text = "攻速+1"
+script = ExtResource( 2 )
+title_path = NodePath("Title")
+effect_path = NodePath("Effect")
+
+[node name="Title" type="Label" parent="."]
+margin_left = 22.0
+margin_top = 34.0
+margin_right = 184.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 1 )
+text = "攻击速度+1"
+
+[node name="Effect" type="Label" parent="."]
+margin_left = 25.0
+margin_top = 116.0
+margin_right = 127.0
+margin_bottom = 163.0
+custom_fonts/font = ExtResource( 1 )
+text = "20->30"

@@ -17,6 +17,8 @@ class MyCustomSorter:
 
 func update_rank_info():
 	var temp_array=[]
+	for item in rank_items_path:
+		get_node(item).set_content("")
 	for chara in world.units.get_children():
 		if Global.check_unit_valid(chara):
 			temp_array.append([chara, chara.kill_num])
